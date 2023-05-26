@@ -1,23 +1,22 @@
 <script setup>
-import { useRouter } from "vue-router"
-import { storeToRefs } from "pinia"
-import { usePlatformStore } from "../store/platformStore"
-import WinTrafficLightBtn from "../components/WinTrafficLightBtn.vue"
+import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { usePlatformStore } from "../store/platformStore";
+import WinTrafficLightBtn from "../components/WinTrafficLightBtn.vue";
 //是否为macOS
-const isMacOS = electronApi.isMacOS
+const isMacOS = electronApi.isMacOS;
 
-const router = useRouter()
+const router = useRouter();
 const { platforms, currentPlatformIndex, currentPlatformCode, isLocal } =
-  storeToRefs(usePlatformStore())
-const { updateCurrentPlatform } = usePlatformStore()
+  storeToRefs(usePlatformStore());
+const { updateCurrentPlatform } = usePlatformStore();
 
 const updateNavIndex = (index) => {
-  console.log(index)
-  updateCurrentPlatform(index)
-  const code = currentPlatformCode.value
-  const url = isLocal.value ? "/" + code : "/square/" + code
-  router.push(url)
-}
+  updateCurrentPlatform(index);
+  const code = currentPlatformCode.value;
+  const url = isLocal.value ? "/" + code : "/square/" + code;
+  router.push(url);
+};
 </script>
 
 <template>
@@ -29,7 +28,6 @@ const updateNavIndex = (index) => {
       <ul>
         <li
           v-for="(nav, index) in platforms"
-          :key="index"
           :class="{ active: currentPlatformIndex == index }"
           @click="updateNavIndex(index)">
           {{ nav.name }}

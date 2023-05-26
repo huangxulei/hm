@@ -1,7 +1,13 @@
-<script setup></script>
-
+<script setup>
+        
+</script>
+        
 <template>
-  <div>LocalMusicView</div>
+    <div>
+       本地歌曲 
+    </div>
 </template>
-
-<style></style>
+        
+<style>
+    
+</style>

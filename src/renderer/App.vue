@@ -1,8 +1,3 @@
-<!--
- * @author: hxl
- * @create: 2023-03-16 00:11:30  
- * App.vue
--->
 <script setup>
 import { storeToRefs } from "pinia";
 import MainLeft from './layout/MainLeft.vue';
