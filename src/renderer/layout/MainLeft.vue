@@ -1,8 +1,3 @@
-<!--
- * @author: hxl
- * @create: 2023-03-16 21:50:54  
- * MainLeft.vue
--->
 <script setup>
 import { useRouter } from "vue-router"
 import { storeToRefs } from "pinia"
@@ -17,9 +12,10 @@ const { platforms, currentPlatformIndex, currentPlatformCode, isLocal } =
 const { updateCurrentPlatform } = usePlatformStore()
 
 const updateNavIndex = (index) => {
+  console.log(index)
   updateCurrentPlatform(index)
   const code = currentPlatformCode.value
-  const url = isLocal.value ? "/" + code : "/square" + code
+  const url = isLocal.value ? "/" + code : "/square/" + code
   router.push(url)
 }
 </script>
@@ -31,7 +27,11 @@ const updateNavIndex = (index) => {
     </div>
     <div id="platform">
       <ul>
-        <li v-for="(nav, index) in platforms" :key="index" :class="{ active: currentPlatformIndex == index }">
+        <li
+          v-for="(nav, index) in platforms"
+          :key="index"
+          :class="{ active: currentPlatformIndex == index }"
+          @click="updateNavIndex(index)">
           {{ nav.name }}
         </li>
       </ul>
