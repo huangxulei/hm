@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import { router } from './route/router';
 import VueLazyLoad from 'vue3-lazyload'
 
+import ImageTextTile from './components/ImageTextTile.vue';
+
 const app = createApp(App)
 
 app.use(createPinia())
@@ -12,4 +14,5 @@ app.use(createPinia())
         loading: 'default_cover.png',
         error: 'default_cover.png'
     })
+    .component('ImageTextTile', ImageTextTile)
     .mount('#app')

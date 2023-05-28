@@ -2,6 +2,7 @@ import { getDoc, getJson } from "../common/HttpClient"
 import { Category } from "../common/Category"
 import { Track } from "../common/Track"
 import { Lyric } from "../common/Lyric"
+import { Playlist } from '../common/Playlist'
 
 //URL
 const BASE_URL = "https://music.163.com"

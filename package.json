@@ -17,7 +17,8 @@
     "sass": "^1.59.3",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
-    "vue3-lazyload": "^0.2.5-beta"
+    "vue3-lazyload": "^0.2.5-beta",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
