@@ -5,13 +5,23 @@ const ipcRenderer = electronApi.ipcRenderer
 export const useMainViewStore = defineStore('mainView', {
     state: () => ({
         coverMaskShow: false,
-        categoryViewShow: false,
+        categoryViewShow: false,//分类显示
 
     }),
     actions: {
 
         toggleCoverMask() {
             this.coverMaskShow = !this.coverMaskShow
+        },
+        toggleCategoryView() {
+            this.categoryViewShow = !this.categoryViewShow
+            if(!this.categoryViewShow) {
+                EventBus.emit("category-resetScroll")
+            }
+        },
+        hideCategoryView(){
+            this.categoryViewShow = false
+            EventBus.emit("category-resetScroll")
         },
         quit() {
             ipcRenderer.send('app-quit')
