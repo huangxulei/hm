@@ -1,5 +1,5 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import SquareView from "../views/SquareView.vue";
+import { createRouter, createWebHashHistory } from "vue-router"
+import SquareView from "../views/SquareView.vue"
 import LocalMusicView from "../views/LocalMusicView.vue"
 
 const routes = [
@@ -14,12 +14,12 @@ const routes = [
     component: SquareView,
   },
   {
-    path:"/local",
-    component:LocalMusicView
-  }
-];
+    path: "/local",
+    component: LocalMusicView,
+  },
+]
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes,
-});
+})
