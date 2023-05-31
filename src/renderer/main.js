@@ -5,6 +5,7 @@ import { router } from './route/router';
 import VueLazyLoad from 'vue3-lazyload'
 
 import ImageTextTile from './components/ImageTextTile.vue';
+import SongItem from './components/SongItem.vue';
 
 const app = createApp(App)
 
@@ -15,4 +16,5 @@ app.use(createPinia())
         error: 'default_cover.png'
     })
     .component('ImageTextTile', ImageTextTile)
+    .component('SongItem', SongItem)
     .mount('#app')

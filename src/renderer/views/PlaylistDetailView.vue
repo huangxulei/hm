@@ -1,38 +1,43 @@
 <script>
 export default {
   name: "PlaylistDetailView",
-}
+};
 </script>
 <script setup>
-import { onBeforeMount, reactive, ref } from "vue"
+import { onBeforeMount, reactive, ref } from "vue";
+import PlayAddAllBtn from "../components/PlayAddAllBtn.vue";
+import { usePlatformStore } from "../store/platformStore";
+import SongListControl from "../components/SongListControl.vue";
 
-import { usePlatformStore } from "../store/platformStore"
-
-const { getVender } = usePlatformStore()
+const { getVender } = usePlatformStore();
 const props = defineProps({
   platform: String,
   id: String,
-})
+});
 
-const detail = reactive({})
-const listSize = ref(0)
-let offset = 0
-let page = 1
-let limit = 1000
+const detail = reactive({});
+const listSize = ref(0);
+let offset = 0;
+let page = 1;
+let limit = 1000;
 
 const loadContent = () => {
-  const vender = getVender(props.platform)
+  const vender = getVender(props.platform);
   if (vender) {
     vender.playlistDetail(props.id, offset, limit, page).then((result) => {
-      console.log("播放列表", result)
-      Object.assign(detail, result)
-      listSize.value = detail.data.length
-    })
+      console.log("播放列表", result);
+      Object.assign(detail, result);
+      listSize.value = detail.data.length;
+    });
   }
-}
+};
 onBeforeMount(() => {
-  loadContent()
-})
+  loadContent();
+});
+
+const playAll = () => {};
+
+const addAll = () => {};
 </script>
 
 <template>
@@ -44,8 +49,20 @@ onBeforeMount(() => {
       <div class="right">
         <div class="title">{{ detail.title }}</div>
         <div class="about">{{ detail.about }}</div>
-        <div class="action"></div>
+        <div class="action">
+          <PlayAddAllBtn :playAction="playAll" :addAction="addAll">
+          </PlayAddAllBtn>
+        </div>
       </div>
+    </div>
+    <div class="center">
+      <div class="list-title">歌曲({{ listSize }})</div>
+      <SongListControl
+        :data="detail.data"
+        :artistVisitable="true"
+        :albumVisitable="true"
+      >
+      </SongListControl>
     </div>
   </div>
 </template>
@@ -54,7 +71,7 @@ onBeforeMount(() => {
 #playlist-detail {
   display: flex;
   flex: 1;
-  font-display: column;
+  flex-direction: column;
   padding: 28px 33px 10px 33px;
   overflow: auto;
 }
@@ -92,5 +109,13 @@ onBeforeMount(() => {
   height: 202px;
   border-radius: 6px;
   box-shadow: 0px 0px 10px #161616;
+}
+#playlist-detail .list-title {
+  margin-bottom: 15px;
+  text-align: left;
+  font-size: 18px;
+  background: linear-gradient(to top right, #1ca388, #28c83f);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 </style>
