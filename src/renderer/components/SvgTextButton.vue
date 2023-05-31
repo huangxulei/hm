@@ -10,7 +10,7 @@ const props = defineProps({
   <div class="svgTextButton">
     <div class="left-btn" @click="leftAction">
       <div class="img">
-        <solt name="left-img"></solt>
+        <slot name="left-img"></slot>
       </div>
       <div class="text">
         {{ text }}
