@@ -1,5 +1,7 @@
 <script setup>
-import { Track } from "../../common/Track"
+import { Track } from "../../common/Track";
+import ArtistControl from "./ArtistControl.vue";
+import AlbumControl from "./AlbumControl.vue";
 
 const prop = defineProps({
   index: Number,
@@ -7,7 +9,7 @@ const prop = defineProps({
   albumVisitable: Boolean,
   data: Track,
   deleteFn: Function,
-})
+});
 </script>
 
 <template>
@@ -31,6 +33,14 @@ const prop = defineProps({
           </g>
         </svg>
       </div>
+    </div>
+    <div class="artist spacing1">
+      <ArtistControl :visitable="artistVisitable" :platform="data.platform" :data="data.artist">
+      </ArtistControl>
+    </div>
+    <div class="album spacing1">
+      <AlbumControl :visitable="albumVisitable" :platform="data.platform" :data="data.album">
+      </AlbumControl>
     </div>
   </div>
 </template>
@@ -58,6 +68,10 @@ const prop = defineProps({
   margin-left: 12px;
 }
 
+.playlist-item .spacing1 {
+  margin-left: 8px;
+}
+
 .playlist-item .title {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -77,6 +91,14 @@ const prop = defineProps({
   flex: 1;
   position: relative;
   text-align: left;
+}
+
+.playlist-item .artist {
+  width: 25%;
+}
+
+.playlist-item .album {
+  width: 25%;
 }
 
 .playlist-item .action {
