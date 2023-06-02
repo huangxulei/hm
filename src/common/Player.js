@@ -68,10 +68,11 @@ export class Player {
     step() {
         if (!this.currentTrack) return;
         const sound = this.currentTrack.howl;
-        const seek = sound.seek() || 0;
-        EventBus.emit("track-pos", seek);
+        const seek = sound.seek() || 0; //获取当前播放秒数
+        EventBus.emit("track-pos", seek); //去改变秒数
         if (sound.playing()) {
-            requestAnimationFrame(self.step.bind(self));
+            /*****重点研究****/
+            requestAnimationFrame(this.step.bind(this));
         }
     }
 }
@@ -82,4 +83,7 @@ EventBus.on("track-play", (track) => {
     console.log("track-play");
     player.setCurrent(track);
     player.play();
+});
+EventBus.on("queue-empty", (volume) => {
+    player.stop();
 });

@@ -10,6 +10,9 @@ const router = useRouter()
 const progressBarRef = ref(null)
 const { progress } = storeToRefs(usePlayStore())
 
+watch(progress, (nv, ov) => {
+    progressBarRef.value.updateProgress(nv)
+})
 
 </script>
 
@@ -18,6 +21,7 @@ const { progress } = storeToRefs(usePlayStore())
         <div id="play-nav">
             <PlayMeta id="play-meta"></PlayMeta>
         </div>
+        <ProgressBar ref="progressBarRef"></ProgressBar>
     </div>
 </template>
 

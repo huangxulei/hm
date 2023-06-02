@@ -82,6 +82,14 @@ export const usePlayStore = defineStore("play", {
         addTracks(tracks) {
             this.queueTracks.push(...tracks);
         },
+        resetQueue() {
+            this.queueTracks.length = 0;
+            this.playingIndex = -1;
+            this.playing = false;
+            this.currentTime = 0;
+            this.progress = 0.0;
+            EventBus.emit("queue-empty");
+        },
         playNextTrack() {
             const maxSize = this.queueTracksSize;
             switch (this.playMode) {
@@ -108,9 +116,19 @@ export const usePlayStore = defineStore("play", {
             if (track.url && track.url.trim().length > 0) {
                 EventBus.emit("track-play", track);
             } else {
-                console.log("playTrack no url");
-                //EventBus.emit("track-changed", track);
+                EventBus.emit("track-changed", track);
             }
+        },
+        updateCurrentTime(secs) {
+            //改变当前播放歌曲的秒数和进度条
+            this.currentTime = secs * 1000;
+            let duration = 0;
+            try {
+                duration = this.currentTrack.duration;
+            } catch (error) {
+                console.log(error);
+            }
+            this.progress = duration > 0 ? this.currentTime / duration : 0;
         },
         /**
          * @description: 音量设置
@@ -141,4 +159,10 @@ EventBus.on("track-state", (state) => {
         default:
             break;
     }
+});
+
+//播放进度条
+EventBus.on("track-pos", (secs) => {
+    const { updateCurrentTime } = usePlayStore();
+    updateCurrentTime(secs);
 });
