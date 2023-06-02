@@ -1,0 +1,26 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+
+# we recommend you to keep these unchanged
+# 我们建议你保持这些不变
+# 换行符类型 = lf
+end_of_line = lf
+# 字符集=utf-8
+charset = utf-8
+# 删除行尾空格 = 是
+trim_trailing_whitespace = true
+# 插入最后一行=真
+insert_final_newline = true
+
+[*.md]
+# 删除行尾空格 = 否
+trim_trailing_whitespace = false
+
+[package.json]
+# 缩进样式=空格
+indent_style = space
+# 缩进大小=2
+indent_size = 4

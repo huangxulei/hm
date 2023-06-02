@@ -1,8 +1,3 @@
-<!--
- * @author: hxl
- * @create: 2023-03-31 23:56:42  
- * AudioTime.vue
--->
 <script setup>
 const props = defineProps({
     current: String,

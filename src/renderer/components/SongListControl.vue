@@ -1,28 +1,23 @@
 <script setup>
 const props = defineProps({
-  data: Array,
-  artistVisitable: Boolean,
-  albumVisitable: Boolean,
+    data: Array,
+    artistVisitable: Boolean,
+    albumVisitable: Boolean,
 });
 </script>
 
 <template>
-  <div class="songlist-ctl">
-    <div v-for="(item, index) in data">
-      <SongItem
-        :index="index"
-        :data="item"
-        :artistVisitable="artistVisitable"
-        :albumVisitable="albumVisitable"
-      >
-      </SongItem>
+    <div class="songlist-ctl">
+        <div v-for="(item, index) in data">
+            <SongItem :index="index" :data="item" :artistVisitable="artistVisitable" :albumVisitable="albumVisitable">
+            </SongItem>
+        </div>
     </div>
-  </div>
 </template>
 
 <style>
 .songlist-ctl {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 </style>

@@ -8,6 +8,7 @@ const props = defineProps({
     visitable: Boolean,
     platform: String,
     data: Array,
+
 });
 
 const router = useRouter();
