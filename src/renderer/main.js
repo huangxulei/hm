@@ -8,8 +8,10 @@ import { Player } from "../common/Player";
 import ProgressBar from "./components/ProgressBar.vue";
 
 import ImageTextTile from "./components/ImageTextTile.vue";
+import PlayControl from "./components/PlayControl.vue";
 import SongItem from "./components/SongItem.vue";
 
+import PlayingView from "./views/PlayingView.vue";
 import PlaybackQueueView from "./views/PlaybackQueueView.vue";
 const app = createApp(App);
 
@@ -20,7 +22,10 @@ app.use(createPinia())
         error: "default_cover.png",
     })
     .component("ProgressBar", ProgressBar)
+    .component("PlayControl", PlayControl)
     .component("ImageTextTile", ImageTextTile)
     .component("SongItem", SongItem)
+    //Views
+    .component("PlayingView", PlayingView)
     .component("PlaybackQueueView", PlaybackQueueView)
     .mount("#app");

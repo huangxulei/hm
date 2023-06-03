@@ -40,6 +40,18 @@ export class Player {
         sound.play();
     }
 
+    togglePlay() {
+        if (!this.currentTrack) return;
+        const sound = this.currentTrack.howl;
+        if (sound) {
+            if (sound.playing()) {
+                sound.pause();
+            } else {
+                sound.play();
+            }
+        }
+    }
+
     stop() {
         if (!this.currentTrack) return;
         const sound = this.currentTrack.howl;
@@ -86,4 +98,10 @@ EventBus.on("track-play", (track) => {
 });
 EventBus.on("queue-empty", (volume) => {
     player.stop();
+});
+EventBus.on("volume-changed", (volume) => {
+    player.volume(volume);
+});
+EventBus.on("track-togglePlay", () => {
+    player.togglePlay();
 });

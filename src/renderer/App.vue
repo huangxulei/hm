@@ -9,6 +9,9 @@ const { playbackQueueViewShow, playingViewShow } = storeToRefs(useMainViewStore(
 <template>
     <MainLeft></MainLeft>
     <MainCenter></MainCenter>
+    <transition name="fade-y">
+        <PlayingView id="playing-view" v-show="playingViewShow"></PlayingView>
+    </transition>
     <PlaybackQueueView id="playback-queue" v-show="playbackQueueViewShow" />
 </template>
 

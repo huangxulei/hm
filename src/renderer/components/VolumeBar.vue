@@ -18,7 +18,7 @@ const toggleMute = () => {
 const emitUpdate = (value) => {
     //改变volume的值0.00 去激发watch
     updateVolume(value)
-    //EventBus.emit("volume-changed", value);
+    EventBus.emit("volume-changed", value);
 }
 
 const updateUI = (value) => {

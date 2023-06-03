@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { PLAY_STATE, PALY_MODE } from "../../common/Constants";
+import { PLAY_STATE, PLAY_MODE } from "../../common/Constants";
 import EventBus from "../../common/EventBus";
 import { Track } from "../../common/Track";
 import { toMmss } from "../../common/Times";
@@ -17,7 +17,7 @@ export const usePlayStore = defineStore("play", {
     state: () => ({
         playing: false,
         playingIndex: -1, //当前播放歌曲序列号
-        playMode: PALY_MODE.REPEAT_ALL, //播放模式 默认循环
+        playMode: PLAY_MODE.REPEAT_ALL, //播放模式 默认循环
         queueTracks: [], //播放列表
         currentTime: 0, //当前时间
         progress: 0.0, //进度条
@@ -90,15 +90,31 @@ export const usePlayStore = defineStore("play", {
             this.progress = 0.0;
             EventBus.emit("queue-empty");
         },
+        playPrevTrack() {
+            //TODO
+            const maxSize = this.queueTracksSize;
+            switch (this.playMode) {
+                case PLAY_MODE.REPEAT_ALL:
+                    --this.playingIndex;
+                    this.playingIndex =
+                        this.playingIndex < 0 ? maxSize - 1 : this.playingIndex;
+                    break;
+                case PLAY_MODE.REPEAT_ONE:
+                    break;
+                case PLAY_MODE.RANDOM:
+                    break;
+            }
+            EventBus.emit("track-changed", this.currentTrack);
+        },
         playNextTrack() {
             const maxSize = this.queueTracksSize;
             switch (this.playMode) {
-                case PALY_MODE.REPEAT_ALL:
+                case PLAY_MODE.REPEAT_ALL:
                     this.playingIndex = ++this.playingIndex % maxSize;
                     break;
-                case PALY_MODE.REPEAT_ONE:
+                case PLAY_MODE.REPEAT_ONE:
                     break;
-                case PALY_MODE.RANDOM:
+                case PLAY_MODE.RANDOM:
                     this.playingIndex = Math.ceil(Math.random() * maxSize);
                     break;
             }
@@ -140,6 +156,10 @@ export const usePlayStore = defineStore("play", {
             value = value > 0 ? value : 0;
             value = value < 1 ? value : 1;
             this.volume = value;
+        },
+        switchPlayMode() {
+            this.playMode = ++this.playMode % 3;
+            //TODO
         },
     },
 });
