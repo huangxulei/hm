@@ -1,5 +1,6 @@
 <script setup>
 import { storeToRefs } from "pinia";
+import PlaybackQueueItem from "../components/PlaybackQueueItem.vue";
 import { usePlayStore } from "../store/playStore";
 import { usePlatformStore } from "../store/platformStore";
 import EventBus from "../../common/EventBus";
@@ -49,7 +50,7 @@ EventBus.on("track-changed", (track) => initAndPlayTrack(track));
         </div>
         <div class="center">
             <div v-for="(item, index) in queueTracks">
-
+                <PlaybackQueueItem :data="item" :active="playingIndex == index"></PlaybackQueueItem>
             </div>
         </div>
     </div>
@@ -105,4 +106,6 @@ EventBus.on("track-changed", (track) => initAndPlayTrack(track));
     margin-right: 3px;
     fill: #eee;
 }
+
+
 </style>
