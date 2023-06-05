@@ -105,3 +105,7 @@ EventBus.on("volume-changed", (volume) => {
 EventBus.on("track-togglePlay", () => {
     player.togglePlay();
 });
+
+EventBus.on("track-seek", (data) => {
+    player.seek(data);
+});
