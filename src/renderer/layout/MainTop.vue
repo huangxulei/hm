@@ -10,6 +10,10 @@ const router = useRouter()
 const progressBarRef = ref(null)
 const { progress } = storeToRefs(usePlayStore())
 
+const seekTrack = (percent) => {
+    EventBus.emit('track-seek', percent)
+}
+
 watch(progress, (nv, ov) => {
     progressBarRef.value.updateProgress(nv)
 })
@@ -25,7 +29,7 @@ watch(progress, (nv, ov) => {
 
             </div>
         </div>
-        <ProgressBar ref="progressBarRef"></ProgressBar>
+        <ProgressBar ref="progressBarRef" :onseek="seekTrack"></ProgressBar>
     </div>
 </template>
 

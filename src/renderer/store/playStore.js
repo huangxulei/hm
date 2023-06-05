@@ -135,6 +135,26 @@ export const usePlayStore = defineStore("play", {
                 EventBus.emit("track-changed", track);
             }
         },
+        removeTrack(track) {
+            const index = this.queueTracks.indexOf(track);
+            if (index != -1) {
+                this.queueTracks.splice(index, 1);
+                const isCurrent = index == this.playingIndex; //判断是否当前播放歌曲
+                if (index <= this.playingIndex) {
+                    //因为
+                    --this.playingIndex;
+                }
+                const maxSize = this.queueTracksSize; //获取最新的长度
+                if (maxSize < 1) {
+                    //假如空重置
+                    this.resetQueue();
+                    return;
+                }
+                if (isCurrent) {
+                    this.playNextTrack();
+                }
+            }
+        },
         updateCurrentTime(secs) {
             //改变当前播放歌曲的秒数和进度条
             this.currentTime = secs * 1000;
