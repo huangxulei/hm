@@ -15,7 +15,6 @@ const initAndPlayTrack = (track) => {
     const vender = getVender(platform);
     if (!vender) return;
     vender.playDetail(track.id, track).then((result) => {
-        console.log(result)
         if (!track.hasUrl()) track.url = result.url;
         if (!track.hasUrl()) {
             if (queueTracksSize > 1) playNextTrack();
@@ -35,6 +34,7 @@ const loadLyric = (track) => {
     vender.lyric(track.id, track).then(result => {
         if (result) {
             track.lyric = result
+            console.log('loadLyric', result)
         }
     })
 }

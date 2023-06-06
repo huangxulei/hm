@@ -26,9 +26,27 @@ EventBus.on('track-pos', secs => {
 })
 
 const renderAndScrollLyric = (secs) => {
-    const MMssSSSS = toMMssSSS(secs * 1000)
+    const MMssSSSS = toMMssSSS(secs * 1000)//获取当前播放时间点
     const lyricWrap = document.querySelector(".lyric-ctl .center")
-    const lines = lyricWrap.querySelector('.line')
+    const lines = lyricWrap.querySelectorAll('.line')
+    //console.log(secs + ", " + MMssSSSS + "," + lines.length)
+    //循环所有的歌词，获取播放行。高亮
+    for (var i = 0; i < lines.length; i++) {
+        const time = lines[i].getAttribute('time-key')//获取时间起点
+        if (time > MMssSSSS) {//循环点发生了
+            currentIndex.value = (i > 0 ? i - 1 : 0)
+            console.log('currentIndex===', currentIndex)
+            break
+        }
+    }
+    if (currentIndex.value < 0) return
+    //scroll 滚动
+    const scrollIndex = currentIndex.value > 1 ? (currentIndex.value - 1) : 0
+    const scrollHeight = lyricWrap.scrollHeight
+    const clientHeight = lyricWrap.clientHeight
+    const maxScrollTop = scrollHeight - clientHeight
+    destScrollTop = maxScrollTop * (scrollIndex / (lines.length - 1))
+    lyricWrap.scrollTop = destScrollTop
 }
 
 </script>
