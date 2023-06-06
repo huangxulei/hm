@@ -55,7 +55,6 @@ const loadContent = () => {
     const limit = pagination.limit;
     const page = pagination.page;
     vender.square(cate, offset, limit, page).then((result) => {
-        console.log("loadContent", result);
         playlists.push(...result.data);
     });
 };

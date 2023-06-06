@@ -30,10 +30,16 @@ export const useMainViewStore = defineStore("mainView", {
             this.categoryViewShow = false;
             EventBus.emit("category-resetScroll");
         },
-
+        hidePlayingView() {
+            this.playingViewShow = false;
+            ipcRenderer.send("hide-winBtn");
+        },
         showPlayingView() {
             this.playingViewShow = true;
             ipcRenderer.send("hide-winBtn");
+        },
+        toggleCoverMask() {
+            this.coverMaskShow = !this.coverMaskShow;
         },
         quit() {
             ipcRenderer.send("app-quit");

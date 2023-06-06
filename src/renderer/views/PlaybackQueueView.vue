@@ -8,22 +8,36 @@ import EventBus from "../../common/EventBus";
 const { queueTracks, playingIndex, queueTracksSize } = storeToRefs(usePlayStore());
 const { playTrack, playNextTrack, resetQueue } = usePlayStore();
 const { getVender } = usePlatformStore();
-
+/***播放重点*** */
 const initAndPlayTrack = (track) => {
     if (!track) return;
     const platform = track.platform;
     const vender = getVender(platform);
     if (!vender) return;
     vender.playDetail(track.id, track).then((result) => {
-        console.log(result);
+        console.log(result)
         if (!track.hasUrl()) track.url = result.url;
         if (!track.hasUrl()) {
             if (queueTracksSize > 1) playNextTrack();
             return;
         }
+        if (!track.hasLyric()) track.lyric = result.lyric
+        if (!track.hasCover()) track.cover = result.cover
         playTrack(track);
+        if (!track.hasLyric()) loadLyric(track)
     });
 };
+
+const loadLyric = (track) => {
+    const platform = track.platform
+    const vender = getVender(platform)
+    if (!vender) return
+    vender.lyric(track.id, track).then(result => {
+        if (result) {
+            track.lyric = result
+        }
+    })
+}
 
 const clearAll = () => {
     resetQueue()

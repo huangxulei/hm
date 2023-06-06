@@ -112,7 +112,6 @@ export class NetEase {
         return new Promise((resolve) => {
             const url = "https://music.163.com/discover/playlist";
             getDoc(url).then((doc) => {
-                console.log("网易云doc", doc);
                 const result = [DEFAULT_CATE];
                 const listEl = doc.querySelectorAll("#cateListBox .f-cb");
                 listEl.forEach((el) => {
@@ -238,6 +237,25 @@ export class NetEase {
                 result.id = song.id;
                 result.url = song.url;
                 resolve(result);
+            });
+        });
+    }
+
+    //歌词
+    static lyric(id) {
+        return new Promise((resolve, reject) => {
+            const url = "https://music.163.com/weapi/song/lyric?csrf_token=";
+            const param = lyricParam(id);
+            const reqBody = weapi(param);
+            postJson(url, reqBody).then((json) => {
+                const lyric = json.lrc.lyric;
+                //console.log(lyric)
+                if (lyric) {
+                    const result = Lyric.parseFromText(lyric);
+                    resolve(result);
+                } else {
+                    resolve(new Lyric());
+                }
             });
         });
     }

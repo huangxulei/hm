@@ -121,7 +121,6 @@ export const usePlayStore = defineStore("play", {
             EventBus.emit("track-changed", this.currentTrack);
         },
         playTrack(track) {
-            console.log("playTrack", track);
             let index = this.indexOf(track); //获取track 所在index
             if (index == -1) {
                 //假如不在列表里面
@@ -132,6 +131,7 @@ export const usePlayStore = defineStore("play", {
             if (track.url && track.url.trim().length > 0) {
                 EventBus.emit("track-play", track);
             } else {
+                console.log("playStore--playTrack", track);
                 EventBus.emit("track-changed", track);
             }
         },

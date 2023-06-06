@@ -92,7 +92,6 @@ export class Player {
 const player = Player.get();
 
 EventBus.on("track-play", (track) => {
-    console.log("track-play");
     player.setCurrent(track);
     player.play();
 });
