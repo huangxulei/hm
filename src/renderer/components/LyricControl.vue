@@ -35,7 +35,6 @@ const renderAndScrollLyric = (secs) => {
         const time = lines[i].getAttribute('time-key')//获取时间起点
         if (time > MMssSSSS) {//循环点发生了
             currentIndex.value = (i > 0 ? i - 1 : 0)
-            console.log('currentIndex===', currentIndex)
             break
         }
     }

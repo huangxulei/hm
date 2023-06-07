@@ -7,9 +7,16 @@ import EventBus from '../../common/EventBus';
 import LyricControl from '../components/LyricControl.vue';
 
 const { hidePlayingView, minimize } = useMainViewStore()
-const { currentTrack, progress } = storeToRefs(usePlayStore())
+const { currentTrack, progress, mmssCurrentTime } = storeToRefs(usePlayStore())
+const progressBarRef = ref(null)
 
+const seekTrack = (percent) => {
+    EventBus.emit('track-seek', percent)
+}
 
+watch(progress, (nv, ov) => {
+    progressBarRef.value.updateProgress(nv)
+})
 </script>
 
 <template>
@@ -43,6 +50,14 @@ const { currentTrack, progress } = storeToRefs(usePlayStore())
             </div>
             <div class="lyric-view">
                 <LyricControl :track="currentTrack"></LyricControl>
+            </div>
+        </div>
+        <div class="bottom">
+            <ProgressBar ref="progressBarRef" :onseek="seekTrack"></ProgressBar>
+            <div class="action">
+                <AudioTime :current="mmssCurrentTime" :duration="currentTrack.mmssDuration()"></AudioTime>
+                <PlayControl class="spacing"></PlayControl>
+                <VolumeBar class="spacing"></VolumeBar>
             </div>
         </div>
     </div>
@@ -109,5 +124,20 @@ const { currentTrack, progress } = storeToRefs(usePlayStore())
     height: 256px;
     border: 5px solid #292929;
     border-radius: 3px;
+}
+
+.playing-view .bottom {
+    height: 68px;
+    margin-bottom: 5px;
+}
+
+.playing-view .bottom .action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playing-view .bottom .action .spacing {
+    margin-left: 66px;
 }
 </style>
